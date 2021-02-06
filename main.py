@@ -18,10 +18,10 @@ def print_mastermind_board(passcode, guess_codes, guess_flags):
         print(guess_flags[i][0], guess_flags[i][1], "|")
 
         print(guess_flags[i][2], guess_flags[i][3], end=" |")
-        if not turn == 0:
-            print(code)
+        #if not turn == 0:
+            #print(code)
             #for x in guess_codes[i]:
-                #print("\t" + x[:3], end="")
+            #    print("\t" + x[:3], end="")
 
         print()
     print("-----------------------------------------")
