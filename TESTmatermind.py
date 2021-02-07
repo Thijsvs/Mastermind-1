@@ -67,7 +67,7 @@ def MinimumNozeros(List1):
             minimum=item
     return minimum
 while True:
-    TempList= [list(map(int, random.sample(range(6), width)))]
+    TempList= [list(map(int, random.sample(range(6), 4)))]
 
 
     for secret in TempList:
@@ -82,7 +82,6 @@ while True:
                     for i3 in range(0,6):
                         optionList.append([i0,i1,i2,i3])
                         allList.append([i0,i1,i2,i3])
-        #while BC!=[4,0]:
         while len(optionList)>1:
             dummyList=[]
             for i0 in range(0,6):
