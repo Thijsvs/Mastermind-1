@@ -5,7 +5,7 @@ width = 4
 
 # TODO: verify that the user gave exactly width characters
 
-def main():
+def game():
     hidden = list(map(str, random.sample(range(10), width)))
     print(f"Hidden numbers: {hidden}")
     while True:
@@ -26,4 +26,4 @@ def main():
         if result == ['*'] * width:
             print("SUCCESS")
             break
-main()
+game()
