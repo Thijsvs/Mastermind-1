@@ -1,15 +1,20 @@
 import random
 import sys
 
+#Variable voor lengte van secret code
 width = 4
 
-# TODO: verify that the user gave exactly width characters
+#variable die aangeeft welk algoritme gebruikt word
+# waarde 0 = user input
+# waarde 1 = 
+algorithm=0
 
-def game():
+def game(algorithm):
     hidden = list(map(str, random.sample(range(10), width)))
     print(f"Hidden numbers: {hidden}")
     while True:
-        inp = input("Guess a number: (e.g. 1234) or x to eXit. ")
+        if algorithm==0:
+            inp = input("Guess a number: (e.g. 1234) or x to eXit. ")
         if inp == 'x' or inp == 'X':
             exit()
         guess = list(inp)
