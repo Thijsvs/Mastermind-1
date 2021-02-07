@@ -1,13 +1,10 @@
 import random
-import sys
-
-#Variable voor lengte van secret code
-width = 4
 
 #variable die aangeeft welk algoritme gebruikt word
 # waarde 0 = user input
 # waarde 1 =
 algorithm=0
+
 #returns how many bulls and cows
 def HowManyBc(guess,secret):
     invalid=max(guess)+1
@@ -69,83 +66,56 @@ def MinimumNozeros(List1):
         if item!=0 and item<minimum:
             minimum=item
     return minimum
+while True:
+    TempList= [list(map(int, random.sample(range(6), width)))]
 
-TempList= [list(map(int, random.sample(range(6), width)))]
-TempList= [[0,0,1,1]]
 
-for secret in TempList:
-    guess=[0,0,1,1]
-    BC=HowManyBc(guess,secret)
-    counter=1
-    optionList=[]
-    allList=[]
-    for i0 in range(0,6):
-        for i1 in range(0,6):
-            for i2 in range(0,6):
-                for i3 in range(0,6):
-                    optionList.append([i0,i1,i2,i3])
-                    allList.append([i0,i1,i2,i3])
-    #while BC!=[4,0]:
-    while len(optionList)>1:
-        dummyList=[]
+    for secret in TempList:
+        guess=[0,0,1,1]
+        BC=HowManyBc(guess,secret)
+        counter=1
+        optionList=[]
+        allList=[]
         for i0 in range(0,6):
             for i1 in range(0,6):
                 for i2 in range(0,6):
                     for i3 in range(0,6):
-                        opSecret=[i0,i1,i2,i3]
-                        if HowManyBc(guess[:],opSecret[:])==BC:
-                            dummyList.append(opSecret)
-        List1=[item for item in optionList if item in dummyList]
-        optionList=List1[:]
-        nextGuess1=[]
-        item1Max=0
-        #L1=optionList[:]
-        #L2=allList[:]
-        L2=optionList[:]
-        L1=allList[:]
-        for item1 in L1:
-            ListBC=[]
-            for item2 in L2:
-                ListBC.append(HowManyBc(item1[:],item2[:]))
-            HMList=[0]*14
-            for BC1 in ListBC:
-                index=Adjustment(BC1)
-                HMList[index]=HMList[index]+1
-            #m=MinimumNozeros(HMList[:])
-            m=len(L1)-max(HMList[:])
-            if m>item1Max:
-                item1Max=m
-                nextGuess1=item1[:]
-        guess=nextGuess1[:]
-        BC=HowManyBc(guess[:],secret[:])
-        counter=counter+1
+                        optionList.append([i0,i1,i2,i3])
+                        allList.append([i0,i1,i2,i3])
+        #while BC!=[4,0]:
+        while len(optionList)>1:
+            dummyList=[]
+            for i0 in range(0,6):
+                for i1 in range(0,6):
+                    for i2 in range(0,6):
+                        for i3 in range(0,6):
+                            opSecret=[i0,i1,i2,i3]
+                            if HowManyBc(guess[:],opSecret[:])==BC:
+                                dummyList.append(opSecret)
+            List1=[item for item in optionList if item in dummyList]
+            optionList=List1[:]
+            nextGuess1=[]
+            item1Max=0
+            #L1=optionList[:]
+            #L2=allList[:]
+            L2=optionList[:]
+            L1=allList[:]
+            for item1 in L1:
+                ListBC=[]
+                for item2 in L2:
+                    ListBC.append(HowManyBc(item1[:],item2[:]))
+                HMList=[0]*14
+                for BC1 in ListBC:
+                    index=Adjustment(BC1)
+                    HMList[index]=HMList[index]+1
+                #m=MinimumNozeros(HMList[:])
+                m=len(L1)-max(HMList[:])
+                if m>item1Max:
+                    item1Max=m
+                    nextGuess1=item1[:]
+            guess=nextGuess1[:]
+            BC=HowManyBc(guess[:],secret[:])
+            counter=counter+1
 
-print(TempList)
-print(counter)
-
-def game(algorithm):
-    hidden = list(map(str, random.sample(range(10), width)))
-    print(f"Hidden numbers: {hidden}")
-    turns = 0
-    while turns < 9:
-        if algorithm==0:
-            inp = input("Guess a number: (e.g. 1234) or x to eXit. ")
-        if inp == 'x' or inp == 'X':
-            exit()
-        guess = list(inp)
-        turns += 1
-        print(guess)
-        result = []
-        for ix in range(len(hidden)):
-            if guess[ix] == hidden[ix]:
-                result += '*'
-            elif guess[ix] in hidden:
-                result += '+'
-            else:
-                result += '-'
-        print(result)
-        if result == ['*'] * width:
-            print(f'gratz!, je hebt {turns} poging(en) gebruikt.')
-            break
-        if turns > 8:
-            print(f'Failed, je hebt { turns} pogingen gedaan.')
+    print(TempList)
+    print(counter)
