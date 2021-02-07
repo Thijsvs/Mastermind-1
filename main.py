@@ -9,12 +9,6 @@ width = 4
 # waarde 1 =
 algorithm=0
 
-
-def simplestrat():
-    print('swag')
-
-
-
 def game(algorithm):
     hidden = list(map(str, random.sample(range(10), width)))
     print(f"Hidden numbers: {hidden}")
@@ -42,3 +36,6 @@ def game(algorithm):
         if turns > 8:
             print(f'Failed, je hebt { turns} pogingen gedaan.')
 game(0)
+
+#SOURCES
+# https://code-maven.com/slides/python/solution-mastermind  voor de main game code
