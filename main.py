@@ -6,18 +6,26 @@ width = 4
 
 #variable die aangeeft welk algoritme gebruikt word
 # waarde 0 = user input
-# waarde 1 = 
+# waarde 1 =
 algorithm=0
+
+
+def simplestrat():
+    print('swag')
+
+
 
 def game(algorithm):
     hidden = list(map(str, random.sample(range(10), width)))
     print(f"Hidden numbers: {hidden}")
-    while True:
+    turns = 0
+    while turns < 9:
         if algorithm==0:
             inp = input("Guess a number: (e.g. 1234) or x to eXit. ")
         if inp == 'x' or inp == 'X':
             exit()
         guess = list(inp)
+        turns += 1
         print(guess)
         result = []
         for ix in range(len(hidden)):
@@ -29,6 +37,8 @@ def game(algorithm):
                 result += '-'
         print(result)
         if result == ['*'] * width:
-            print("SUCCESS")
+            print(f'gratz!, je hebt {turns} poging(en) gebruikt.')
             break
-game()
+        if turns > 8:
+            print(f'Failed, je hebt { turns} pogingen gedaan.')
+game(0)
