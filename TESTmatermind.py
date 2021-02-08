@@ -1,5 +1,6 @@
 import random
 
+
 def startgame():
     global Secretcode
     # variable voor keuze: eigen code of random generated
@@ -10,15 +11,12 @@ def startgame():
     #Gebruiker selecteerd optie: handmatige invoer van geheime code
     if howtocode ==0:
         #de input wordt eerst als string gemaakt, omdat bijvoorbeeld de code '0011'  als integer automatisch zou veranderen naar '11'
-        Secretcode = [[int(i) for i in [char for char in str(input('vul 4 cijfers in (0 t/m 5): '))]]]
+        Secretcode = [int(i) for i in [char for char in str(input('vul 4 cijfers in (0 t/m 5): '))]]
     #Gebruiker selecteerd optie: random generated geheime code
     elif howtocode ==1:
         #hier word een list dat 4 willekeurige intergers bevat(0 tot 6) aangemaakt
         Secretcode = [list(map(int, random.sample(range(0, 6), 4)))]
     selectalgo()
-
-
-
 
 def selectalgo():
     # variable die aangeeft welk algoritme gebruikt word
@@ -26,8 +24,16 @@ def selectalgo():
     # waarde 1 = knutz
 
     algo_choice = int(input("Welk algorithme wil je gebruiken?0 = user input, 1 = Knutz"))
+    if algo_choice==0:
+        breakit()
     if algo_choice==1:
         knutz(Secretcode)
+
+#de gebruiker heeft gekozen om handmatig de code te kraken
+def breakit():
+    # de input wordt eerst als string gemaakt, omdat bijvoorbeeld de code '0011'  als integer automatisch zou veranderen naar '11'
+    guess = [int(i) for i in [char for char in str(input('vul 4 cijfers in (0 t/m 5): '))]]
+    pegs(guess, Secretcode)
 
 def pegs(guess, Secretcode):
     global red
@@ -35,8 +41,15 @@ def pegs(guess, Secretcode):
     red = 0
     white = 0
     for i in range(len(Secretcode)):
-        if guess[i] == Secretcode[i]
-            
+        if guess[i] == Secretcode[i]:
+            red += 1
+            continue
+        if guess[i] in Secretcode and guess[i] != Secretcode[i]:
+            white += 1
+    if [red,white]==[4,0]:
+        print('lekker bezig dries')
+    print(red, white)
+    return [red, white]
 
 
 
@@ -63,7 +76,6 @@ def HowManyBc(guess, secret):
             p = p + 1
         r = r + 1
     return [bulls, cows]
-
 
 # sends every BC to its index in HMList
 def Adjustment(BC1):
@@ -96,7 +108,6 @@ def Adjustment(BC1):
     elif BC1 == [4, 0]:
         return 13
 
-
 # returns positive's list minimum without including zeros
 def MinimumNozeros(List1):
     minimum = max(List1) + 1
@@ -104,8 +115,6 @@ def MinimumNozeros(List1):
         if item != 0 and item < minimum:
             minimum = item
     return minimum
-
-
 
 def knutz(Secretcode):
         for secret in Secretcode:
@@ -156,7 +165,5 @@ def knutz(Secretcode):
                 counter=counter+1
         print(Secretcode)
         print(counter)
-sjaak=[0,0,0,2]
-for i in range(len(sjaak)):
-    print(i)
+
 startgame()
