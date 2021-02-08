@@ -16,13 +16,14 @@ def startgame():
         #hier word een list dat 4 willekeurige intergers bevat(0 tot 6) aangemaakt
         Secretcode = [list(map(int, random.sample(range(0, 6), 4)))]
     selectalgo()
+    algo_choice = int(input("Welk algorithme wil je gebruiken?0 = user input, 1 = Knutz"))
 
-def selectalgo():
+def selectalgo(algo_choice):
     # variable die aangeeft welk algoritme gebruikt word
     # waarde 0 = user input
     # waarde 1 = knutz
 
-    algo_choice = int(input("Welk algorithme wil je gebruiken?0 = user input, 1 = Knutz"))
+
     if algo_choice==0:
         breakit()
     if algo_choice==1:
@@ -46,10 +47,13 @@ def pegs(guess, Secretcode):
             continue
         if guess[i] in Secretcode and guess[i] != Secretcode[i]:
             white += 1
-    if [red,white]==[4,0]:
-        print('lekker bezig dries')
-    print(red, white)
-    return [red, white]
+    if [red, white]==[4,0]:
+        print('GGWP')
+        quit()
+    else:
+        print(red, white)
+        return [red,white]
+
 
 # returns how many bulls and cows
 def HowManyBc(guess, secret):
