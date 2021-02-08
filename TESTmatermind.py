@@ -1,29 +1,42 @@
 import random
 
-# variable voor keuze eigen code of random generated
-# waarde 0 = user
-# waarde 1 = RNG
-#howtocode = int(input("Code zelf maken of laten genereren? 0=user input,  1=RNG"))
-howtocode = 0
-if howtocode ==0:
-    inputcode = str(input('vul 4 cijfers in( 0 t/m 5) : '))
-    Secretcode = [[int(i) for i in [char for char in inputcode]]]
+def startgame():
+    global Secretcode
+    # variable voor keuze: eigen code of random generated
+    # waarde 0 = user
+    # waarde 1 = RNG
+    howtocode = int(input("Code zelf maken of laten genereren? 0=user input,  1=RNG"))
+
+    #Gebruiker selecteerd optie: handmatige invoer van geheime code
+    if howtocode ==0:
+        #de input wordt eerst als string gemaakt, omdat bijvoorbeeld de code '0011'  als integer automatisch zou veranderen naar '11'
+        Secretcode = [[int(i) for i in [char for char in str(input('vul 4 cijfers in (0 t/m 5): '))]]]
+    #Gebruiker selecteerd optie: random generated geheime code
+    elif howtocode ==1:
+        #hier word een list dat 4 willekeurige intergers bevat(0 tot 6) aangemaakt
+        Secretcode = [list(map(int, random.sample(range(0, 6), 4)))]
+    selectalgo()
 
 
 
 
+def selectalgo():
+    # variable die aangeeft welk algoritme gebruikt word
+    # waarde 0 = user input
+    # waarde 1 = knutz
 
-elif howtocode ==1:
-    Secretcode = [list(map(int, random.sample(range(0, 6), 4)))]
-    print(Secretcode)
+    algo_choice = int(input("Welk algorithme wil je gebruiken?0 = user input, 1 = Knutz"))
+    if algo_choice==1:
+        knutz(Secretcode)
 
-
-
-# variable die aangeeft welk algoritme gebruikt word
-# waarde 0 = user input
-# waarde 1 = knutz
-algorithm = int(input("Welk algorithme wil je gebruiken?0 = user input, 1 = Knutz"))
-
+def pegs(guess, Secretcode):
+    global red
+    global white
+    red = 0
+    white = 0
+    for i in range(len(Secretcode)):
+        if guess[i] == Secretcode[i]
+            
 
 
 
@@ -93,53 +106,57 @@ def MinimumNozeros(List1):
     return minimum
 
 
-while algorithm==1:
 
-    for secret in Secretcode:
-        guess=[0,0,1,1]
-        BC=HowManyBc(guess[:],secret[:])
-        counter=1
-        optionList=[]
-        allList=[]
-        for i0 in range(0,6):
-            for i1 in range(0,6):
-                for i2 in range(0,6):
-                    for i3 in range(0,6):
-                        optionList.append([i0,i1,i2,i3])
-                        allList.append([i0,i1,i2,i3])
-        #while BC!=[4,0]:
-        while len(optionList)>1:
-            dummyList=[]
+def knutz(Secretcode):
+        for secret in Secretcode:
+            guess=[0,0,1,1]
+            BC=HowManyBc(guess[:],secret[:])
+            counter=1
+            optionList=[]
+            allList=[]
             for i0 in range(0,6):
                 for i1 in range(0,6):
                     for i2 in range(0,6):
                         for i3 in range(0,6):
-                            opSecret=[i0,i1,i2,i3]
-                            if HowManyBc(guess[:],opSecret[:])==BC:
-                                dummyList.append(opSecret)
-            List1=[item for item in optionList if item in dummyList]
-            optionList=List1[:]
-            nextGuess1=[]
-            item1Max=0
-            #L1=optionList[:]
-            #L2=allList[:]
-            L2=optionList[:]
-            L1=allList[:]
-            for item1 in L1:
-                ListBC=[]
-                for item2 in L2:
-                    ListBC.append(HowManyBc(item1[:],item2[:]))
-                HMList=[0]*14
-                for BC1 in ListBC:
-                    index=Adjustment(BC1)
-                    HMList[index]=HMList[index]+1
-                #m=MinimumNozeros(HMList[:])
-                m=len(L1)-max(HMList[:])
-                if m>item1Max:
-                    item1Max=m
-                    nextGuess1=item1[:]
-            guess=nextGuess1[:]
-            BC=HowManyBc(guess[:],secret[:])
-            counter=counter+1
-    print(Secretcode)
-    print(counter)
+                            optionList.append([i0,i1,i2,i3])
+                            allList.append([i0,i1,i2,i3])
+            #while BC!=[4,0]:
+            while len(optionList)>1:
+                dummyList=[]
+                for i0 in range(0,6):
+                    for i1 in range(0,6):
+                        for i2 in range(0,6):
+                            for i3 in range(0,6):
+                                opSecret=[i0,i1,i2,i3]
+                                if HowManyBc(guess[:],opSecret[:])==BC:
+                                    dummyList.append(opSecret)
+                List1=[item for item in optionList if item in dummyList]
+                optionList=List1[:]
+                nextGuess1=[]
+                item1Max=0
+                #L1=optionList[:]
+                #L2=allList[:]
+                L2=optionList[:]
+                L1=allList[:]
+                for item1 in L1:
+                    ListBC=[]
+                    for item2 in L2:
+                        ListBC.append(HowManyBc(item1[:],item2[:]))
+                    HMList=[0]*14
+                    for BC1 in ListBC:
+                        index=Adjustment(BC1)
+                        HMList[index]=HMList[index]+1
+                    #m=MinimumNozeros(HMList[:])
+                    m=len(L1)-max(HMList[:])
+                    if m>item1Max:
+                        item1Max=m
+                        nextGuess1=item1[:]
+                guess=nextGuess1[:]
+                BC=HowManyBc(guess[:],secret[:])
+                counter=counter+1
+        print(Secretcode)
+        print(counter)
+sjaak=[0,0,0,2]
+for i in range(len(sjaak)):
+    print(i)
+startgame()

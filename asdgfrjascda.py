@@ -62,8 +62,8 @@ def MinimumNozeros(List1):
     return minimum
 
 TempList = [list(map(int, random.sample(range(0, 6), 4)))]
-while True:
 
+def knutz(Secretcode):
     for secret in TempList:
         guess=[0,0,1,1]
         BC=HowManyBc(guess[:],secret[:])
