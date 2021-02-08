@@ -2,6 +2,7 @@ import random
 
 def startgame():
     global Secretcode
+    global algo_choice
     # variable voor keuze: eigen code of random generated
     # waarde 0 = user
     # waarde 1 = RNG
@@ -15,15 +16,13 @@ def startgame():
     elif howtocode ==1:
         #hier word een list dat 4 willekeurige intergers bevat(0 tot 6) aangemaakt
         Secretcode = [list(map(int, random.sample(range(0, 6), 4)))]
-    selectalgo()
     algo_choice = int(input("Welk algorithme wil je gebruiken?0 = user input, 1 = Knutz"))
+    selectalgo(algo_choice)
 
 def selectalgo(algo_choice):
     # variable die aangeeft welk algoritme gebruikt word
     # waarde 0 = user input
     # waarde 1 = knutz
-
-
     if algo_choice==0:
         breakit()
     if algo_choice==1:
@@ -52,6 +51,7 @@ def pegs(guess, Secretcode):
         quit()
     else:
         print(red, white)
+        selectalgo(algo_choice)
         return [red,white]
 
 
