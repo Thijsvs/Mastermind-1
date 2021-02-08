@@ -1,3 +1,5 @@
+# Bron 1: https://stackoverflow.com/questions/20302682/mastermind-in-python
+
 import random
 
 def startgame():
@@ -19,6 +21,7 @@ def startgame():
     algo_choice = int(input("Welk algorithme wil je gebruiken?0 = user input, 1 = Knutz"))
     selectalgo(algo_choice)
 
+
 def selectalgo(algo_choice):
     # variable die aangeeft welk algoritme gebruikt word
     # waarde 0 = user input
@@ -35,6 +38,7 @@ def breakit():
     pegs(guess, Secretcode)
 
 #deze functie returned een list met aantal red en white pegs.  Format:[red, white]
+#copied and ajusted from 'bron 1'
 def pegs(guess, Secretcode):
     global red
     global white
