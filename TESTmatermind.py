@@ -35,6 +35,7 @@ def breakit():
     guess = [int(i) for i in [char for char in str(input('vul 4 cijfers in (0 t/m 5): '))]]
     pegs(guess, Secretcode)
 
+#deze functie returned een list met aantal red en white pegs.  Format:[red, white]
 def pegs(guess, Secretcode):
     global red
     global white
@@ -50,8 +51,6 @@ def pegs(guess, Secretcode):
         print('lekker bezig dries')
     print(red, white)
     return [red, white]
-
-
 
 # returns how many bulls and cows
 def HowManyBc(guess, secret):
