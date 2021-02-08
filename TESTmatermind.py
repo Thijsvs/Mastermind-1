@@ -1,9 +1,24 @@
 import random
 
+# variable voor keuze eigen code of random generated
+# waarde 0 = user
+# waarde 1 = RNG
+howtocode = int(input("Code zelf maken of laten genereren? 0=user input,  1=RNG"))
+if howtocode ==0:
+    TempList = [input('vul 4 cijfers in( 1 t/m 6')]
+    print(usercode)
+elif howtocode ==1:
+    TempList = [list(map(int, random.sample(range(0, 6), 4)))]
+    print(TempList)
+
+
+
 # variable die aangeeft welk algoritme gebruikt word
 # waarde 0 = user input
-# waarde 1 =
-algorithm = 0
+# waarde 1 = knutz
+algorithm = int(input("Welk algorithme wil je gebruiken?0 = user input, 1 = Knutz"))
+
+
 
 
 # returns how many bulls and cows
@@ -72,9 +87,9 @@ def MinimumNozeros(List1):
     return minimum
 
 
-while True:
-    TempList = [list(map(int, random.sample(range(6), 4)))]
-
+while algorithm==1:
+    # Maakt een list in een list. Deze list bevat 4 strings met characters 0 tot 5
+    #TempList = [list(map(int, random.sample(range(6), 4)))]
 
     for secret in TempList:
         guess = [0, 0, 1, 1]
@@ -101,8 +116,6 @@ while True:
             optionList = List1[:]
             nextGuess1 = []
             item1Max = 0
-            # L1=optionList[:]
-            # L2=allList[:]
             L2 = optionList[:]
             L1 = allList[:]
             for item1 in L1:
