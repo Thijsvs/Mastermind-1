@@ -1,6 +1,5 @@
 import random
 
-
 def startgame():
     global Secretcode
     # variable voor keuze: eigen code of random generated
