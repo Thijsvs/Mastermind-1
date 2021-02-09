@@ -1,6 +1,7 @@
 # Bron 1: https://stackoverflow.com/questions/20302682/mastermind-in-python
 
 import random
+import time
 
 def startgame():
     global Secretcode
@@ -8,17 +9,19 @@ def startgame():
     # variable voor keuze: eigen code of random generated
     # waarde 0 = user
     # waarde 1 = RNG
-    howtocode = int(input("Code zelf maken of laten genereren? 0=user input,  1=RNG"))
+    howtocode = int(input("Code zelf maken of laten genereren?\n0=user input, 1=RNG"))
 
     #Gebruiker selecteerd optie: handmatige invoer van geheime code
     if howtocode ==0:
         #de input wordt eerst als string gemaakt, omdat bijvoorbeeld de code '0011'  als integer automatisch zou veranderen naar '11'
         Secretcode = [int(i) for i in [char for char in str(input('vul 4 cijfers in (0 t/m 5): '))]]
+        print(f'Dit is de code dmv userinpit {Secretcode}')
     #Gebruiker selecteerd optie: random generated geheime code
     elif howtocode ==1:
         #hier word een list dat 4 willekeurige intergers bevat(0 tot 6) aangemaakt
-        Secretcode = [list(map(int, random.sample(range(0, 6), 4)))]
-    algo_choice = int(input("Welk algorithme wil je gebruiken?0 = user input, 1 = Knutz"))
+        Secretcode = list(map(int, random.sample(range(0, 6), 4)))
+        print(f'Dit is de code dmv random {Secretcode}')
+    algo_choice = int(input("Welk algorithme wil je gebruiken?\n0=user input, 1=Knutz, 2=simple strategy"))
     selectalgo(algo_choice)
 
 
@@ -26,20 +29,29 @@ def selectalgo(algo_choice):
     # variable die aangeeft welk algoritme gebruikt word
     # waarde 0 = user input
     # waarde 1 = knutz
+    # waarde 2 = simple strategy
     if algo_choice==0:
         breakit()
     if algo_choice==1:
         knutz(Secretcode)
+    if algo_choice == 2:
+        simplestrat(Secretcode)
 
 #de gebruiker heeft gekozen om handmatig de code te kraken
 def breakit():
     # de input wordt eerst als string gemaakt, omdat bijvoorbeeld de code '0011'  als integer automatisch zou veranderen naar '11'
     guess = [int(i) for i in [char for char in str(input('vul 4 cijfers in (0 t/m 5): '))]]
-    pegs(guess, Secretcode)
+    print(f'Dit is de guess dmv userinput {guess}')
+    print(pegs(guess, Secretcode, algo_choice))
+    if pegs(guess, Secretcode, algo_choice) != [4,0]:
+        breakit()
+    else:
+        print('GGWP')
+        quit()
 
 #deze functie returned een list met aantal red en white pegs.  Format:[red, white]
-#copied and ajusted from 'bron 1'
-def pegs(guess, Secretcode):
+#inspired from 'bron 1'
+def pegs(guess, Secretcode,algo_choice):
     global red
     global white
     red = 0
@@ -50,38 +62,7 @@ def pegs(guess, Secretcode):
             continue
         if guess[i] in Secretcode and guess[i] != Secretcode[i]:
             white += 1
-    if [red, white]==[4,0]:
-        print('GGWP')
-        quit()
-    else:
-        print(red, white)
-        selectalgo(algo_choice)
-        return [red,white]
-
-
-# returns how many bulls and cows
-def HowManyBc(guess, secret):
-    invalid = max(guess) + 1
-    bulls = 0
-    cows = 0
-    r = 0
-    while r < 4:
-        if guess[r] == secret[r]:
-            bulls = bulls + 1
-            secret[r] = invalid
-            guess[r] = invalid
-        r = r + 1
-    r = 0
-    while r < 4:
-        p = 0
-        while p < 4:
-            if guess[r] == secret[p] and guess[r] != invalid:
-                cows = cows + 1
-                secret[p] = invalid
-                break
-            p = p + 1
-        r = r + 1
-    return [bulls, cows]
+    return [red, white]
 
 # sends every BC to its index in HMList
 def Adjustment(BC1):
@@ -171,5 +152,30 @@ def knutz(Secretcode):
                 counter=counter+1
         print(Secretcode)
         print(counter)
+
+#functie die de simpele strategie volgt
+def simplestrat(Secretcode):
+    count = 0
+    alloption = []
+    currentoption = []
+    # Loop die alle mogelijk combinaties, in lists plaatst
+    # De lists worden zo aangemaakt, dat ze gelijk gesorteerd zijn.
+    for i0 in range(0, 6):
+        for i1 in range(0, 6):
+            for i2 in range(0, 6):
+                for i3 in range(0, 6):
+                    alloption.append([i0, i1, i2, i3])
+                    currentoption.append([i0, i1, i2, i3])
+
+    while len(currentoption)>1:
+        guess = random.choice(currentoption)
+        feedback = pegs(guess, Secretcode,algo_choice)
+        count += 1
+
+        for i in range(0,len(alloption)):
+            if feedback == pegs(alloption[i], Secretcode,algo_choice):
+                currentoption.append(alloption[i])
+        print(len(alloption))
+        alloption = currentoption
 
 startgame()
