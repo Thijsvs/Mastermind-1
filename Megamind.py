@@ -52,8 +52,6 @@ def breakit():
 #deze functie returned een list met aantal red en white pegs.  Format:[red, white]
 #inspired from 'bron 1'
 def pegs(guess, Secretcode,algo_choice):
-    global red
-    global white
     red = 0
     white = 0
     for i in range(len(Secretcode)):
@@ -62,6 +60,21 @@ def pegs(guess, Secretcode,algo_choice):
             continue
         if guess[i] in Secretcode and guess[i] != Secretcode[i]:
             white += 1
+    return [red, white]
+
+def pegstest(guess, Secretcode,algo_choice):
+    red = 0
+    white = 0
+    tempcodecopy = Secretcode.copy()
+    for i in range(0,len(tempcodecopy)):
+        if guess[i] == tempcodecopy[i]:
+            red += 1
+            tempcodecopy[i]='rooie'
+    for i in range(0,len(tempcodecopy)):
+        if guess[i] in tempcodecopy and guess[i] != tempcodecopy[i]:
+            white += 1
+            tempcodecopy[i] = 'witte'
+
     return [red, white]
 
 # sends every BC to its index in HMList
@@ -171,7 +184,9 @@ def simplestrat(Secretcode):
         #maak een gok met een willekeurige mogelijke optie
         guess = random.choice(currentoption)
         count += 1
-        feedback = pegs(guess, Secretcode,algo_choice)
+        feedback = pegstest(guess, Secretcode,algo_choice)
+        print(f'guess: {guess} feedback:{feedback}')
+
         if feedback == [4,0]:
             print(f'GGWP GAMER, het heeft {count} turns gekost')
             print(f'De code was {guess}.')
@@ -182,7 +197,9 @@ def simplestrat(Secretcode):
                 for i2 in range(0, 6):
                     for i3 in range(0, 6):
                         checksecret=[i0,i1,i2,i3]
-                        if pegs(guess, checksecret, algo_choice)==feedback:
+                        print(f'result: { pegstest(guess, checksecret, algo_choice)}, checksecret : {checksecret}, guess: {guess}')
+
+                        if pegstest(guess, checksecret, algo_choice)==feedback:
                             checklst.append(checksecret)
         currentoption =[item for item in currentoption if item in checklst]
 
