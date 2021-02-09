@@ -10,6 +10,8 @@ def startgame():
     # waarde 0 = user
     # waarde 1 = RNG
     howtocode = int(input("Code zelf maken of laten genereren?\n0=user input, 1=RNG"))
+    
+#     misschien hier iets van een "\n"of een spatie om duidelijk te maken dat er iets ingevoerd moet worden
 
     #Gebruiker selecteerd optie: handmatige invoer van geheime code
     if howtocode ==0:
