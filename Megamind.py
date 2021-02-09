@@ -54,13 +54,18 @@ def breakit():
 def pegs(guess, Secretcode,algo_choice):
     red = 0
     white = 0
+    secretcop = Secretcode.copy()
+    guesscop = guess.copy()
     for i in range(len(Secretcode)):
         if guess[i] == Secretcode[i]:
             red += 1
+            secretcop.remove(Secretcode[i])
+            guesscop.remove(guess[i])
 
-        if guess[i] in Secretcode:
+    for i in range(len(secretcop)):
+        if guesscop[i] in secretcop:
             white += 1
-    white = white-red
+            secretcop.remove(guesscop[i])
     return [red, white]
 
 #functie die de simpele strategie volgt
