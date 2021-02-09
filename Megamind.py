@@ -66,14 +66,18 @@ def pegstest(guess, Secretcode,algo_choice):
     red = 0
     white = 0
     tempcodecopy = Secretcode.copy()
+    guesscopy = guess.copy()
     for i in range(0,len(tempcodecopy)):
-        if guess[i] == tempcodecopy[i]:
+        if guesscopy[i] == tempcodecopy[i]:
             red += 1
-            tempcodecopy[i]='rooie'
+            tempcodecopy.remove(i)
+            guesscopy.remove(i)
+
     for i in range(0,len(tempcodecopy)):
-        if guess[i] in tempcodecopy and guess[i] != tempcodecopy[i]:
+        if guesscopy[i] in tempcodecopy and guesscopy[i] != tempcodecopy[i]:
             white += 1
-            tempcodecopy[i] = 'witte'
+            tempcodecopy.remove(i)
+            guesscopy.remove(i)
 
     return [red, white]
 
