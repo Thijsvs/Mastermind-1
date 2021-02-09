@@ -167,15 +167,25 @@ def simplestrat(Secretcode):
                     alloption.append([i0, i1, i2, i3])
                     currentoption.append([i0, i1, i2, i3])
 
-    while len(currentoption)>1:
+    while True:
+        #maak een gok met een willekeurige mogelijke optie
         guess = random.choice(currentoption)
-        feedback = pegs(guess, Secretcode,algo_choice)
         count += 1
+        feedback = pegs(guess, Secretcode,algo_choice)
+        if feedback == [4,0]:
+            print(f'GGWP GAMER, het heeft {count} turns gekost')
+            print(f'De code was {guess}.')
+            quit()
+        checklst=[]
+        for i0 in range(0, 6):
+            for i1 in range(0, 6):
+                for i2 in range(0, 6):
+                    for i3 in range(0, 6):
+                        checksecret=[i0,i1,i2,i3]
+                        if pegs(guess, checksecret, algo_choice)==feedback:
+                            checklst.append(checksecret)
+        currentoption =[item for item in currentoption if item in checklst]
 
-        for i in range(0,len(alloption)):
-            if feedback == pegs(alloption[i], Secretcode,algo_choice):
-                currentoption.append(alloption[i])
-        print(len(alloption))
-        alloption = currentoption
+
 
 startgame()
